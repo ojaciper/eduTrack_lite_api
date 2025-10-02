@@ -25,5 +25,42 @@ class EnrollmentService:
 
         return enroll_course
 
+    @staticmethod
+    def course_completed(id: str):
+        course_enrolled = enrollments.get(str(id))
+        if not course_enrolled:
+            return False
+        course_enrolled.completed = False
+        return True
+
+    @staticmethod
+    def all_enrollment():
+        return list(enrollments.values())
+
+    @staticmethod
+    def user_course_enrolled(user_id: str):
+        user = users.get(str(user_id))
+        if not user:
+            return None
+
+        enrolleds = []
+        for enrolled in enrollments.values():
+            if enrolled.user_id == user_id:
+                enrolleds.append(enrolled)
+        return enrolleds
+
+    @staticmethod
+    def get_all_user_courese(user_id: str):
+        user = users.get(str(user_id))
+        if not user:
+            return None
+        user_course = []
+        for en in enrollments.values():
+            if en.user_id == user_id:
+                for cu in courses.values():
+                    if en.course_id == cu.course_id:
+                        user_course.append(cu)
+        return user_course
+
 
 enroll_services = EnrollmentService()
