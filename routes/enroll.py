@@ -30,3 +30,16 @@ def user_enrolled_course(user_id: str):
     if not enroll_course:
         raise HTTPException(status_code=404, detail="user not found")
     return {"msg":"success", "data":enrolled}
+
+@course_enroll.get("enrollment/course/{enrollment_id}/completed", status_code=204)
+def course_completed(enrollment_id:str):
+    enrolled= enroll_services.course_completed(enrollment_id)
+    if not enrolled:
+        raise HTTPException(status_code=404, detail="Course enrollment nof found")
+    return {"msg":"success"}
+
+@course_enroll.get("/", status_code=200)
+def all_course_enrolled():
+    enrolled= enroll_services.all_enrollment()
+    return {"msg":"success", "data":enrolled}
+    

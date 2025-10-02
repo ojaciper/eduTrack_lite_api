@@ -35,7 +35,8 @@ class EnrollmentService:
 
     @staticmethod
     def all_enrollment():
-        return list(enrollments.values())
+        enrolleds = list(enrollments.values())
+        return enrolleds
 
     @staticmethod
     def user_course_enrolled(user_id: str):

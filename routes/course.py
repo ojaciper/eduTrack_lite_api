@@ -56,3 +56,11 @@ def remove(course_id: str):
     return {"msg": "success", "data": course}
 
 
+@course_router.get("/user/enrollment/{course_id}", status_code=200)
+def user_course_enrollment(course_id: str):
+    course = course_services.users_enrrolled_in_course(course_id)
+    if not course:
+        raise HTTPException(status_code=404, detail="course not found")
+    if course == False:
+        raise HTTPException(status_code=404, detail="no user enroll on this course")
+    return course

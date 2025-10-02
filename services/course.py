@@ -1,6 +1,6 @@
 from uuid import uuid4
 from schemas.course import CreateCourse, UpdateCoure, Course
-from database import courses
+from database import courses, enrollments,users
 
 
 class CourseServices:
@@ -50,6 +50,19 @@ class CourseServices:
             return False
         course.is_open = False
         return True
+    @staticmethod
+    def users_enrrolled_in_course(course_id:str):
+        course = courses.get(str(course_id))
+        if not course:
+            return None
+        all_user_enrolled_in_course =[]
+        for en in enrollments.values():
+            if en.course_id == course.course_id:
+                user = users.get(str(en.user_id))
+                all_user_enrolled_in_course.append(user)
+        if len(all_user_enrolled_in_course) < 0:
+            return False
+        return all_user_enrolled_in_course
 
 
 course_services = CourseServices()
