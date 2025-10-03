@@ -21,7 +21,7 @@ def user_by_id(user_id: str):
     user = user_services.get_user_by_id(user_id)
     if not user:
         raise HTTPException(status_code=200, detail="User not found")
-    return {"msg": "succces", "data": user}
+    return {"msg": "success", "data": user}
 
 
 @user_router.post("/create", status_code=201)

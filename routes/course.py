@@ -29,7 +29,7 @@ def coure_by_id(course_id: str):
     course = course_services.get_course_by_id(course_id)
     if not course:
         raise HTTPException(status_code=200, detail="Course not found")
-    return {"msg": "succces", "data": course}
+    return {"msg": "success", "data": course}
 
 
 @course_router.put("/update/{course_id}", status_code=200)
