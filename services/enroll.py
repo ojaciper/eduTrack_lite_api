@@ -18,7 +18,7 @@ class EnrollmentService:
             return "course_is_not_open"
 
         for enroll in enrollments.values():
-            if enroll.course_id == enroll_data.course_id and user.id == enroll.user_id:
+            if enroll.course_id == enroll_data.course_id and user.user_id== enroll.user_id:
                 return "course_already_enrolled"
         enroll_course = Enroll(id=str(uuid4()), **enroll_data.model_dump())
         enrollments[enroll_course.id] = enroll_course

@@ -22,7 +22,7 @@ class UserServices:
         for user in users.values():
             if user.email == user_data.email:
                 return False
-        new_user = User(id=str(uuid4()), **user_data.model_dump())
+        new_user = User(user_id=str(uuid4()), **user_data.model_dump())
         users[new_user.id] = new_user
         return new_user
 
