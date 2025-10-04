@@ -16,10 +16,17 @@ def test_get_user_by_id_success(client, any_user_id):
     assert res.json()["data"]["user_id"] == any_user_id
 
 
-# def test_create_new_user(random_uuid):
-#      payload = {"name":"Tochi","email":"sophia@gmail.com", "is_active":True}
-#      res = client.post("users/create", json=payload)
-#      assert res.status_code in [status.HTTP_200_OK, status.HTTP_400_BAD_REQUEST]
+def test_create_new_user(client):
+     payload = {"name":"Tochi","email":"sophia@gmail.com", "is_active":True}
+     res = client.post("/users/create", json=payload)
+     assert res.status_code== status.HTTP_201_CREATED
+     data = res.json()
+     assert data['msg'] == "success"
+     assert data["data"]["name"] == payload["name"]
+     assert data["data"]["email"] == payload["email"]
+     assert data["data"]["is_active"] == payload["is_active"]
+   
+         
 
 
 def test_create_user_duplicate_email(client):

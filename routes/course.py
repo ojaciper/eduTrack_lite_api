@@ -14,7 +14,7 @@ def course():
     return {"msg": "success", "data": course}
 
 
-@course_router.post("/create", status_code=204)
+@course_router.post("/create", status_code=201)
 def create_course(course_data: CreateCourse):
     course = course_services.create_course(course_data)
     if not course:

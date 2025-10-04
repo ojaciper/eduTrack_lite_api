@@ -8,17 +8,21 @@ class EnrollmentService:
     def enroll(enroll_data: CreateEnrollment):
         user = users.get(str(enroll_data.user_id))
         course = courses.get(str(enroll_data.course_id))
+        print(course)
+        if not course.is_open:
+            return "course_not_open"
         if not user:
             return "no_user"
         if not course:
             return "no_course"
         if not user.is_active:
             return "user_is_not_active"
-        if not course.is_open:
-            return "course_is_not_open"
 
         for enroll in enrollments.values():
-            if enroll.course_id == enroll_data.course_id and user.user_id== enroll.user_id:
+            if (
+                enroll.course_id == enroll_data.course_id
+                and user.user_id == enroll.user_id
+            ):
                 return "course_already_enrolled"
         enroll_course = Enroll(id=str(uuid4()), **enroll_data.model_dump())
         enrollments[enroll_course.id] = enroll_course

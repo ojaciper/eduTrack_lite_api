@@ -23,7 +23,7 @@ class UserServices:
             if user.email == user_data.email:
                 return False
         new_user = User(user_id=str(uuid4()), **user_data.model_dump())
-        users[new_user.id] = new_user
+        users[new_user.user_id] = new_user
         return new_user
 
     @staticmethod
