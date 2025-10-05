@@ -1,3 +1,4 @@
+from typing import Optional
 from pydantic import BaseModel
 
 
@@ -13,5 +14,5 @@ class CreateUser(BaseModel):
     is_active:bool = True
 
 class UpdateUser(BaseModel):
-    name:str
-    email:str
+    name:Optional[str] = None
+    email:Optional[str] = None

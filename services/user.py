@@ -41,7 +41,7 @@ class UserServices:
         user = users.get(str(user_id))
         if not user:
             return False
-        del users[user.id]
+        del users[user.user_id]
         return True
 
     @staticmethod

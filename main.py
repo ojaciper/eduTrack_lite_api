@@ -3,13 +3,13 @@ from routes.user import user_router
 from routes.course import course_router
 from routes.enroll import course_enroll
 
-app = FastAPI()
+app = FastAPI(title="EduTrack Lite API")
 
 
 
 
 
-@app.get("/")
+@app.get("/", tags={"Home"})
 def home():
     return {"msg":"EduTrack lite api"}
 

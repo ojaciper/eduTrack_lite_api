@@ -39,15 +39,18 @@ def user_update(user_id: str, user_data: UpdateUser):
         raise HTTPException(status_code=404, detail="User not found")
     return {"msg": "success", "data": user}
 
+
 @user_router.delete("/remove/{user_id}", status_code=204)
 def remove_user(user_id):
     user = user_services.delete_user(user_id)
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
-    return {"msg":"success"}
-@user_router.get("/deactivate/{user_id}", status_code= 204)
-def deactivate(user_id:str):
+    return {"msg": "success"}
+
+
+@user_router.get("/deactivate/{user_id}", status_code=204)
+def deactivate(user_id: str):
     user = user_services.deactivate_user(user_id)
     if not user:
-        raise HTTPException(status_code= 404, detail="User not found")
+        raise HTTPException(status_code=404, detail="User not found")
     return user
