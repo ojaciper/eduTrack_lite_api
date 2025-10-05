@@ -9,7 +9,7 @@ A lightweight FastAPI service for managing users, courses, and enrollments.
 ## Setup
 ```bash
 # 1) Clone and enter the project
-git clone <your-repo-url>
+git clone <https://github.com/ojaciper/eduTrack_lite_api.git>
 cd eduTrack_lite
 
 # 2) Create and activate a virtual environment
