@@ -8,13 +8,12 @@ class EnrollmentService:
     def enroll(enroll_data: CreateEnrollment):
         user = users.get(str(enroll_data.user_id))
         course = courses.get(str(enroll_data.course_id))
-        print(course)
-        if not course.is_open:
-            return "course_not_open"
-        if not user:
-            return "no_user"
         if not course:
             return "no_course"
+        if not user:
+            return "no_user"
+        if not course.is_open == True:
+            return "course_not_open"
         if not user.is_active:
             return "user_is_not_active"
 
@@ -47,7 +46,6 @@ class EnrollmentService:
         user = users.get(str(user_id))
         if not user:
             return None
-
         enrolleds = []
         for enrolled in enrollments.values():
             if enrolled.user_id == user_id:

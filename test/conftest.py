@@ -16,6 +16,10 @@ def any_user_id():
 def any_course_id():
     return next(iter(courses.keys()))
 
+@pytest.fixture
+def course_id():
+    return next(iter(courses.keys()))
+
 
 @pytest.fixture(scope="session")
 def random_uuid():

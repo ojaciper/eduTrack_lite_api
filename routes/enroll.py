@@ -14,13 +14,15 @@ def enroll_course(enroll_data: CreateEnrollment):
 
     if course_enroll == "course_already_enrolled":
         raise HTTPException(
-            status_code=404, detail="you can't enroll twice on this course"
+            status_code=409, detail="you can't enroll twice on this course"
         )
     if course_enroll == "no_user":
         raise HTTPException(status_code=404, detail="User not found")
-    
     if course_enroll == "no_course":
         raise HTTPException(status_code=404, detail="Course not found")
+    
+    if course_enroll == "user_is_not_active":
+        raise HTTPException(status_code=401, detail="User not active")
 
     return {"msg": "success", "data": course_enroll}
 
@@ -28,8 +30,7 @@ def enroll_course(enroll_data: CreateEnrollment):
 @course_enroll.get("/course/{user_id}", status_code=200)
 def user_enrolled_course(user_id: str):
     enrolled = enroll_services.user_course_enrolled(user_id)
-    # enrolled = enroll_services.get_all_user_courese(user_id)
-    if not enroll_course:
+    if not  enrolled:
         raise HTTPException(status_code=404, detail="user not found")
     return {"msg": "success", "data": enrolled}
 

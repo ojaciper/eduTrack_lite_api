@@ -34,7 +34,7 @@ def test_create_user_duplicate_email(client):
     existing_email = res.json()["data"][0]["email"]
     payload = {"name": "Peter", "email": existing_email, "is_active": True}
     resp = client.post("/users/create", json=payload)
-    assert resp.status_code == status.HTTP_404_NOT_FOUND
+    assert resp.status_code == status.HTTP_409_CONFLICT
 
 
 def test_get_user_by_id_not_found(client, random_uuid):

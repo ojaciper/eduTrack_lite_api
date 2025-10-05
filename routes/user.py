@@ -20,7 +20,7 @@ def user():
 def user_by_id(user_id: str):
     user = user_services.get_user_by_id(user_id)
     if not user:
-        raise HTTPException(status_code=200, detail="User not found")
+        raise HTTPException(status_code=404, detail="User not found")
     return {"msg": "success", "data": user}
 
 
@@ -28,7 +28,7 @@ def user_by_id(user_id: str):
 def user(user_data: CreateUser):
     user = user_services.create_user(user_data)
     if not user:
-        raise HTTPException(status_code=404, detail="User aready exist")
+        raise HTTPException(status_code=409, detail="User aready exist")
     return {"msg": "success", "data": user}
 
 
