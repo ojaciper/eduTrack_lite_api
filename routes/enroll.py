@@ -46,4 +46,6 @@ def course_completed(enrollment_id: str):
 @course_enroll.get("/", status_code=200)
 def all_course_enrolled():
     enrolled = enroll_services.all_enrollment()
+    if not enrolled:
+        raise HTTPException(status_code=404, detail ="Course not found")
     return {"msg": "success", "data": enrolled}

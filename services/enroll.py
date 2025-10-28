@@ -39,6 +39,8 @@ class EnrollmentService:
     @staticmethod
     def all_enrollment():
         enrolleds = list(enrollments.values())
+        if len(enrolleds) <= 0:
+            return None
         return enrolleds
 
     @staticmethod
