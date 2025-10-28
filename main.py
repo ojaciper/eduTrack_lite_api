@@ -7,19 +7,19 @@ app = FastAPI(title="EduTrack Lite API")
 
 
 
-@app.middleware("http")
-async def log_request(request:Request, call_next):
-    logging.info(f'Incoming request:{request.method} {request.url}')
-    response = await call_next(request)
-    logging.info(f'Request status: {response.status_code}')
-    return response
+# @app.middleware("http")
+# async def log_request(request:Request, call_next):
+#     logging.info(f'Incoming request:{request.method} {request.url}')
+#     response = await call_next(request)
+#     logging.info(f'Request status: {response.status_code}')
+#     return response
 
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s = %(levelname)s - %(message)s",
-    filename='app.log',
-    filemode="a"
-)
+# logging.basicConfig(
+#     level=logging.INFO,
+#     format="%(asctime)s = %(levelname)s - %(message)s",
+#     filename='app.log',
+#     filemode="a"
+# )
 
 
 @app.get("/", tags={"Home"})
