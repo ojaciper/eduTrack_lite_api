@@ -7,7 +7,7 @@ from database import users
 user_router = APIRouter()
 
 
-@user_router.get("/", status_code=200)
+@user_router.get("", status_code=200)
 def user():
     user = user_services.all_user()
     if not user:
@@ -24,7 +24,7 @@ def user_by_id(user_id: str):
     return {"msg": "success", "data": user}
 
 
-@user_router.post("/", status_code=201)
+@user_router.post("", status_code=201)
 def user(user_data: CreateUser):
     user = user_services.create_user(user_data)
     if not user:
@@ -48,7 +48,7 @@ def remove_user(user_id):
     return {"msg": "success"}
 
 
-@user_router.patch("/{user_id}/deactivate/", status_code=204)
+@user_router.patch("/{user_id}/deactivate", status_code=204)
 def deactivate(user_id: str, deactivate:DeactivateUser):
     user = user_services.deactivate_user(user_id, deactivate)
     if not user:

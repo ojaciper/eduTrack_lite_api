@@ -6,7 +6,7 @@ from database import courses
 course_router = APIRouter()
 
 
-@course_router.get("/", status_code=200)
+@course_router.get("", status_code=200)
 def course():
     course = course_services.all_course()
     if not course:
@@ -14,7 +14,7 @@ def course():
     return {"msg": "success", "data": course}
 
 
-@course_router.post("/", status_code=201)
+@course_router.post("", status_code=201)
 def create_course(course_data: CreateCourse):
     course = course_services.create_course(course_data)
     if not course:
@@ -24,7 +24,7 @@ def create_course(course_data: CreateCourse):
     return {"msg": "success", "data": course}
 
 
-@course_router.get("/{course_id}", status_code=200)
+@course_router.get("{course_id}", status_code=200)
 def coure_by_id(course_id: str):
     course = course_services.get_course_by_id(course_id)
     if not course:

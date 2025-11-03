@@ -43,7 +43,7 @@ def course_completed(enrollment_id: str, iscompleted:UpdateCompleted):
     return {"msg": "success"}
 
 
-@course_enroll.get("/", status_code=200)
+@course_enroll.get("/enrollment", status_code=200)
 def all_course_enrolled():
     enrolled = enroll_services.all_enrollment()
     if not enrolled:
