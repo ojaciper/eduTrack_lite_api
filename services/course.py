@@ -1,5 +1,5 @@
 from uuid import uuid4
-from schemas.course import CreateCourse, UpdateCoure, Course
+from schemas.course import CreateCourse, UpdateCoure, Course, IsOpen
 from database import courses, enrollments,users
 
 
@@ -44,12 +44,15 @@ class CourseServices:
         return True
 
     @staticmethod
-    def close_course(course_id: str):
+    def close_course(course_id: str, isopen:IsOpen):
         course = courses.get(str(course_id))
         if not course:
             return False
-        course.is_open = False
+        update_course_open = isopen.model_dump(exclude_unset=True)
+        updated_course_open = course.model_copy(update=update_course_open)
+        courses[course_id] = updated_course_open
         return True
+    
     @staticmethod
     def users_enrrolled_in_course(course_id:str):
         course = courses.get(str(course_id))

@@ -19,3 +19,6 @@ class UpdateEnrollment(BaseModel):
     user_id:str
     course_id:str
     enrolled_date:datetime
+
+class UpdateCompleted(BaseModel):
+    completed:bool=False

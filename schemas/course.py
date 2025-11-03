@@ -16,3 +16,6 @@ class CreateCourse(BaseModel):
 class UpdateCoure(BaseModel):
     title:str
     description:str
+    
+class IsOpen(BaseModel):
+    is_open:bool = True

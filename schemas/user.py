@@ -16,3 +16,5 @@ class CreateUser(BaseModel):
 class UpdateUser(BaseModel):
     name:Optional[str] = None
     email:Optional[str] = None
+class DeactivateUser(BaseModel):
+    is_active:bool = True

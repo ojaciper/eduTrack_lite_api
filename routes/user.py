@@ -1,5 +1,5 @@
 from fastapi import APIRouter, HTTPException
-from schemas.user import CreateUser, UpdateUser
+from schemas.user import CreateUser, UpdateUser, DeactivateUser
 from services.user import user_services
 from database import users
 
@@ -24,7 +24,7 @@ def user_by_id(user_id: str):
     return {"msg": "success", "data": user}
 
 
-@user_router.post("/create", status_code=201)
+@user_router.post("/", status_code=201)
 def user(user_data: CreateUser):
     user = user_services.create_user(user_data)
     if not user:
@@ -32,7 +32,7 @@ def user(user_data: CreateUser):
     return {"msg": "success", "data": user}
 
 
-@user_router.put("/update/{user_id}", status_code=200)
+@user_router.put("/{user_id}", status_code=200)
 def user_update(user_id: str, user_data: UpdateUser):
     user = user_services.update_user(user_id, user_data)
     if not user:
@@ -40,7 +40,7 @@ def user_update(user_id: str, user_data: UpdateUser):
     return {"msg": "success", "data": user}
 
 
-@user_router.delete("/remove/{user_id}", status_code=204)
+@user_router.delete("/{user_id}", status_code=204)
 def remove_user(user_id):
     user = user_services.delete_user(user_id)
     if not user:
@@ -48,9 +48,9 @@ def remove_user(user_id):
     return {"msg": "success"}
 
 
-@user_router.get("/deactivate/{user_id}", status_code=204)
-def deactivate(user_id: str):
-    user = user_services.deactivate_user(user_id)
+@user_router.patch("/{user_id}/deactivate/", status_code=204)
+def deactivate(user_id: str, deactivate:DeactivateUser):
+    user = user_services.deactivate_user(user_id, deactivate)
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
     return user

@@ -1,5 +1,5 @@
 from uuid import uuid4
-from schemas.user import User, CreateUser, UpdateUser
+from schemas.user import User, CreateUser, UpdateUser, DeactivateUser
 from database import users
 
 
@@ -45,11 +45,20 @@ class UserServices:
         return True
 
     @staticmethod
-    def deactivate_user(user_id:str):
+    def deactivate_user(user_id:str, deactivate: DeactivateUser):
         user = users.get(str(user_id))
+
         if not user:
             return False
-        user.is_active = False
+        update_data= deactivate.model_dump(exclude_unset=True)
+        updated_user = user.model_copy(update=update_data)
+        users[user_id] = updated_user
+        # if user_id not in users:
+        #     return False
+        # user = users[user_id]
+        # update_data =deactivate.model_dump(exclude_unset=True)
+        # updated_user = user.model_copy(update = update_data)
+        # users[user_id] = updated_user
         return True
 
 

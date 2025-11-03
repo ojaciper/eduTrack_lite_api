@@ -1,6 +1,6 @@
 from uuid import uuid4
 from database import users, courses, enrollments
-from schemas.enrollment import Enroll, CreateEnrollment, UpdateEnrollment
+from schemas.enrollment import Enroll, CreateEnrollment, UpdateCompleted, UpdateEnrollment
 
 
 class EnrollmentService:
@@ -29,11 +29,13 @@ class EnrollmentService:
         return enroll_course
 
     @staticmethod
-    def course_completed(id: str):
+    def course_completed(id: str, iscompleted:UpdateCompleted):
         course_enrolled = enrollments.get(str(id))
         if not course_enrolled:
             return False
-        course_enrolled.completed = False
+        update_completed = iscompleted.model_dump(exclude_unset=True)
+        updated_completed = course_enrolled.model_copy(update=update_completed)
+        enrollments[id] = updated_completed
         return True
 
     @staticmethod

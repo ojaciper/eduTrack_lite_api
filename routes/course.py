@@ -1,12 +1,12 @@
 from fastapi import APIRouter, HTTPException
-from schemas.course import CreateCourse, UpdateCoure
+from schemas.course import CreateCourse, IsOpen, UpdateCoure
 from services.course import course_services
 from database import courses
 
 course_router = APIRouter()
 
 
-@course_router.get("/all", status_code=200)
+@course_router.get("/", status_code=200)
 def course():
     course = course_services.all_course()
     if not course:
@@ -14,7 +14,7 @@ def course():
     return {"msg": "success", "data": course}
 
 
-@course_router.post("/create", status_code=201)
+@course_router.post("/", status_code=201)
 def create_course(course_data: CreateCourse):
     course = course_services.create_course(course_data)
     if not course:
@@ -32,7 +32,7 @@ def coure_by_id(course_id: str):
     return {"msg": "success", "data": course}
 
 
-@course_router.put("/update/{course_id}", status_code=200)
+@course_router.put("/{course_id}", status_code=200)
 def update_course(course_id: str, course_data: UpdateCoure):
     course = course_services.update_course(course_id, course_data)
     if not course:
@@ -48,15 +48,15 @@ def remove(course_id: str):
     return {"msg": "success", "data": course}
 
 
-@course_router.get("/close/{course_id}", status_code=204)
-def remove(course_id: str):
-    course = course_services.close_course(course_id)
+@course_router.patch("/{course_id}/close", status_code=204)
+def remove(course_id: str, isopen:IsOpen):
+    course = course_services.close_course(course_id, isopen)
     if not course:
         raise HTTPException(status_code=404, detail="Course not found")
     return {"msg": "success", "data": course}
 
 
-@course_router.get("/user/enrollment/{course_id}", status_code=200)
+@course_router.get("/user/{course_id}/enrollment", status_code=200, tags=None)
 def user_course_enrollment(course_id: str):
     course = course_services.users_enrrolled_in_course(course_id)
     if not course:
