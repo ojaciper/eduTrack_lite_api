@@ -56,7 +56,7 @@ def remove(course_id: str, isopen:IsOpen):
     return {"msg": "success", "data": course}
 
 
-@course_router.get("/user/{course_id}/enrollment", status_code=200, tags=None)
+@course_router.get("/users/{course_id}/enrollment", status_code=200, tags=None)
 def user_course_enrollment(course_id: str):
     course = course_services.users_enrrolled_in_course(course_id)
     if not course:
