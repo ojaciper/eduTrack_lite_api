@@ -31,4 +31,4 @@ def home():
 
 app.include_router(user_router,prefix="/user", tags=["User"])
 app.include_router(course_router, prefix="/course", tags=["Course"])
-app.include_router(course_enroll, prefix="",tags=["Course enrollment"])
+app.include_router(course_enroll, prefix="/",tags=["Course enrollment"])
