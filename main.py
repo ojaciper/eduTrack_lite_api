@@ -29,6 +29,6 @@ def home():
 
 
 
-app.include_router(user_router,prefix="/users", tags=["Users"])
+app.include_router(user_router,prefix="/user", tags=["User"])
 app.include_router(course_router, prefix="/course", tags=["Course"])
-app.include_router(course_enroll, prefix="/enroll",tags=["Course enrollment"])
+app.include_router(course_enroll, prefix="/enrollment",tags=["Course enrollment"])
